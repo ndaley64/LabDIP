@@ -23,6 +23,9 @@ public class BaggageServiceTipCalculator implements TipCalculator{
     private static final double POOR_RATE = 0.10;
     
     private static final double BASE_TIP = 0.00;
+    private static final double MIN_TIP_PER_BAG = 0.00;
+    private static final double INITIAL_BASE_TIP_PER_BAG = 1.00;
+    private static final int MIN_BAG_COUNT = 0;
     
     private double baseTipPerBag;
     private int bagCount;
@@ -32,7 +35,7 @@ public class BaggageServiceTipCalculator implements TipCalculator{
         this.setServiceRating(q); // perform validation
         this.setBagCount(bags);
 
-        baseTipPerBag = 1.00; // set default value
+        baseTipPerBag = INITIAL_BASE_TIP_PER_BAG; // set default value
     }
 
     @Override
@@ -68,7 +71,7 @@ public class BaggageServiceTipCalculator implements TipCalculator{
     }
 
     public final void setBagCount(int bagCount) {
-        if(bagCount < 0) {
+        if(bagCount < MIN_BAG_COUNT) {
             throw new IllegalArgumentException(
                     BAGGAGE_COUNT_ENTRY_ERR);
         }
@@ -80,7 +83,7 @@ public class BaggageServiceTipCalculator implements TipCalculator{
     }
 
     public void setBaseTipPerBag(double baseTipPerBag) {
-        if(baseTipPerBag < 0) {
+        if(baseTipPerBag < MIN_TIP_PER_BAG) {
             throw new IllegalArgumentException(
                     BASE_TIP_ENTRY_ERR);
         }
